@@ -1,18 +1,30 @@
-/**
- * Laskee D'Hondtin vertausluvut yhdelle listalle
- * @param {Object[]} ehdokkaat - Taulukko ehdokasobjekteja, joissa numero, nimi ja äänimäärä
- * @returns {Object[]} - Sama taulukko, mutta lisättynä vertausluvuilla
- */
 function laskeVertausluvut(ehdokkaat) {
-  // Järjestetään ehdokkaat äänimäärän mukaan laskevasti
-  const jarjestetyt = [...ehdokkaat].sort((a, b) => b.aanet - a.aanet);
+  const kopio = [...ehdokkaat];
 
-  // Laske äänien summa
-  const aanetYhteensa = jarjestetyt.reduce((summa, ehdokas) => summa + ehdokas.aanet, 0);
+  const ryhmat = {};
+  for (const e of kopio) {
+    if (!ryhmat[e.aanet]) ryhmat[e.aanet] = [];
+    ryhmat[e.aanet].push(e);
+  }
 
-  // Lasketaan vertausluvut: äänet / sija listassa
-  return jarjestetyt.map((ehdokas, index) => ({
-    ...ehdokas,
+  let satunnaistettuLista = [];
+  for (const aanimaara in ryhmat) {
+    const ryhma = ryhmat[aanimaara];
+    if (ryhma.length > 1) {
+      const arvottu = ryhma.sort(() => Math.random() - 0.5);
+      for (const e of arvottu) e.arvottu = true;
+      satunnaistettuLista = satunnaistettuLista.concat(arvottu);
+    } else {
+      satunnaistettuLista.push(ryhma[0]);
+    }
+  }
+
+  const jarjestetyt = satunnaistettuLista.sort((a, b) => b.aanet - a.aanet);
+
+  const aanetYhteensa = jarjestetyt.reduce((summa, e) => summa + e.aanet, 0);
+
+  return jarjestetyt.map((e, index) => ({
+    ...e,
     vertausluku: aanetYhteensa / (index + 1)
   }));
 }
