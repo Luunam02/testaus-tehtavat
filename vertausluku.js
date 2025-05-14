@@ -1,5 +1,5 @@
 function laskeVertausluvut(ehdokkaat) {
-  const kopio = [...ehdokkaat];
+  const kopio = [...ehdokkaat.map(e => ({ ...e }))]; 
 
   const ryhmat = {};
   for (const e of kopio) {
@@ -12,22 +12,23 @@ function laskeVertausluvut(ehdokkaat) {
     const ryhma = ryhmat[aanimaara];
     if (ryhma.length > 1) {
       const arvottu = ryhma.sort(() => Math.random() - 0.5);
-      for (const e of arvottu) e.arvottu = true;
+      for (const e of arvottu) {
+        e.arvottu = true;
+      }
       satunnaistettuLista = satunnaistettuLista.concat(arvottu);
     } else {
       satunnaistettuLista.push(ryhma[0]);
     }
   }
 
-  const jarjestetyt = satunnaistettuLista.sort((a, b) => b.aanet - a.aanet);
+  const aanetYhteensa = satunnaistettuLista.reduce((summa, e) => summa + e.aanet, 0);
 
-  const aanetYhteensa = jarjestetyt.reduce((summa, e) => summa + e.aanet, 0);
+  satunnaistettuLista.sort((a, b) => b.aanet - a.aanet);
 
-  return jarjestetyt.map((e, index) => ({
+  return satunnaistettuLista.map((e, index) => ({
     ...e,
     vertausluku: aanetYhteensa / (index + 1)
   }));
 }
-
 export default laskeVertausluvut;
 export { laskeVertausluvut };
