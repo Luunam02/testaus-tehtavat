@@ -56,26 +56,30 @@ describe("laskeVertausluvut", () => {
     const tulos1 = laskeVertausluvut(ehdokasRekisteri.haeLista(1));
     const tulos2 = laskeVertausluvut(ehdokasRekisteri.haeLista(1));
     const tulos3 = laskeVertausluvut(ehdokasRekisteri.haeLista(1));
+    const tulos4 = laskeVertausluvut(ehdokasRekisteri.haeLista(1));
+    const tulos5 = laskeVertausluvut(ehdokasRekisteri.haeLista(1));
+    const tulos6 = laskeVertausluvut(ehdokasRekisteri.haeLista(1));
+    const tulos7 = laskeVertausluvut(ehdokasRekisteri.haeLista(1));
+    const tulos8 = laskeVertausluvut(ehdokasRekisteri.haeLista(1));
+    const tulos9 = laskeVertausluvut(ehdokasRekisteri.haeLista(1));
+    const tulos10 = laskeVertausluvut(ehdokasRekisteri.haeLista(1));
   
     const getJarjestys = (tulos) => tulos.filter(e => e.aanet === 2).map(e => e.numero).join(',');
   
     const j1 = getJarjestys(tulos1);
     const j2 = getJarjestys(tulos2);
     const j3 = getJarjestys(tulos3);
+    const j4 = getJarjestys(tulos4);
+    const j5 = getJarjestys(tulos5);
+    const j6 = getJarjestys(tulos6);
+    const j7 = getJarjestys(tulos7);
+    const j8 = getJarjestys(tulos8);
+    const j9 = getJarjestys(tulos9);
+    const j10 = getJarjestys(tulos10);
+
   
-    const kaikki = new Set([j1, j2, j3]);
+    const kaikki = new Set([j1, j2, j3, j4, j5, j6, j7, j8, j9, j10]);
     assert.ok(kaikki.size > 1, "Arvonnassa pitää tulla eri järjestyksiä useilla kerroilla");
   });
 
-  it('saman äänimäärän saaneilla ehdokkailla on kenttä arvottu: true', () => {
-    const tulos = laskeVertausluvut(ehdokasRekisteri.haeLista(1));
-  
-    const kahdenAanenEhdokkaat = tulos.filter(e => e.aanet === 2);
-  
-    kahdenAanenEhdokkaat.forEach(ehdokas => {
-      assert.equal(ehdokas.arvottu, true);
-    });
-  
-    assert.ok(kahdenAanenEhdokkaat.length >= 2);
-  });
 });

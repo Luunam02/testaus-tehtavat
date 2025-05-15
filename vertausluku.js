@@ -1,5 +1,5 @@
 function laskeVertausluvut(ehdokkaat) {
-  const kopio = [...ehdokkaat.map(e => ({ ...e }))]; 
+  const kopio = [...ehdokkaat]; 
 
   const ryhmat = {};
   for (const e of kopio) {
